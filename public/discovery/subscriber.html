@@ -1,0 +1,19 @@
+<script>
+    fetch('api.php') // Has this header `Link: <http://localhost:3000/hub>; rel="mercure"`
+        .then(response => {
+            // Extract the hub URL from the Link header
+            const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+
+            return response.json().then(json => ({json, hubUrl}));
+        })
+        .then(({json, hubUrl}) => {
+            console.log(json); // The document fetched from the API
+
+            const url = new URL(hubUrl);
+            url.searchParams.append('topic', json['@id']);
+
+            const es = new EventSource(url);
+            es.onmessage = ({data}) => console.log(data);
+        })
+    ;
+</script>
