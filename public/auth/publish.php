@@ -14,9 +14,9 @@ $targets = [
     'http://example.com/groups/abc',
 ];
 
+// Usually, you'll use pre-generated token for the server
 $jwtProvider = function () use ($targets) : string {
     return (new Builder())
-        // could also include the security roles, or anything else
         ->set('mercure', ['publish' => $targets])
         // It must be the same key than the one used by the Hub (JWT_KEY)
         ->sign(new Sha256(), '!ChangeMe!')
