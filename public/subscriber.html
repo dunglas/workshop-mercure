@@ -1,0 +1,6 @@
+<script>
+    const es = new EventSource('http://localhost:3000/hub?topic=http://example.com/my-resource');
+    es.onmessage = function (e) {
+        console.log(e.data);
+    };
+</script>

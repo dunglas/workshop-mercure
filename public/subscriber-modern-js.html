@@ -1,0 +1,11 @@
+<script>
+    const url = new URL('http://localhost:3000/hub');
+    url.searchParams.append('topic', 'http://example.com/my-resource');
+    url.searchParams.append('topic', 'http://example.com/another-resource');
+    // URI templates (RFC 6560)
+    url.searchParams.append('topic', 'http://example.com/resources/{id}');
+    // http://example.com/resources/22 and http://example.com/resources/foo match
+
+    const es = new EventSource(url);
+    es.onmessage = ({data}) => console.log(data);
+</script>
