@@ -1,0 +1,9 @@
+<script>
+    const url = new URL('http://localhost:3000/hub');
+    url.searchParams.append('topic', 'http://localhost:8000/api/books/{id}');
+
+    const es = new EventSource(url);
+    es.onmessage = ({data}) => console.log(data);
+
+    // As an exercise, try to use the discovery mechanism, it is supported by API Platform!
+</script>
